@@ -1,0 +1,12 @@
+{
+  "addons": {
+    "enable-statut-mandat-pfo@extension-id": {
+      "updates": [
+        {
+          "version": "1.0.0",
+          "update_link": "https://github.com/USERNAME/REPOSITORY/releases/download/v1.0.0/enable-statut-mandat-pfo-v1.0.0.zip"
+        }
+      ]
+    }
+  }
+}
