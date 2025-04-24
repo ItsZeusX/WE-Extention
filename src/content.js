@@ -1,21 +1,53 @@
-(function enableStatutMandatPfo() {
-  console.log("Enabling statut_mandat_pfo select");
+(function enableSelects() {
+  console.log("Enabling disabled selects");
+
   const tryEnable = () => {
-    const select = document.getElementById("statut_mandat_pfo");
-    if (select) {
-      select.removeAttribute("disabled");
-      const observer = new MutationObserver((muts) => {
+    let foundElements = false;
+
+    // Enable statut_mandat_pfo select
+    const statutSelect = document.getElementById("statut_mandat_pfo");
+    if (statutSelect) {
+      foundElements = true;
+      statutSelect.removeAttribute("disabled");
+      const statutObserver = new MutationObserver((muts) => {
         muts.forEach((m) => {
-          if (m.attributeName === "disabled" && select.hasAttribute("disabled")) {
-            select.removeAttribute("disabled");
+          if (
+            m.attributeName === "disabled" &&
+            statutSelect.hasAttribute("disabled")
+          ) {
+            statutSelect.removeAttribute("disabled");
           }
         });
       });
-      observer.observe(select, { attributes: true });
-    } else {
+      statutObserver.observe(statutSelect, { attributes: true });
+    }
+
+    // Enable mandat_motifs_ko[] select
+    const motifSelect = document.querySelector(
+      'select[name="mandat_motifs_ko[]"]'
+    );
+    if (motifSelect) {
+      foundElements = true;
+      motifSelect.removeAttribute("disabled");
+      const motifObserver = new MutationObserver((muts) => {
+        muts.forEach((m) => {
+          if (
+            m.attributeName === "disabled" &&
+            motifSelect.hasAttribute("disabled")
+          ) {
+            motifSelect.removeAttribute("disabled");
+          }
+        });
+      });
+      motifObserver.observe(motifSelect, { attributes: true });
+    }
+
+    // If neither element was found, retry a few times
+    if (!foundElements) {
       if (retryCount++ < 10) setTimeout(tryEnable, 300);
     }
   };
+
   let retryCount = 0;
   tryEnable();
 })();
