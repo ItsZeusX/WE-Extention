@@ -1,4 +1,5 @@
 (function enableStatutMandatPfo() {
+  console.log("Enabling statut_mandat_pfo select");
   const tryEnable = () => {
     const select = document.getElementById("statut_mandat_pfo");
     if (select) {
