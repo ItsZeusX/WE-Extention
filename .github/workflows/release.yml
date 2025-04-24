@@ -11,7 +11,7 @@ on:
 
 permissions:
   contents: write
-  
+
 jobs:
   build-and-release:
     runs-on: ubuntu-latest
@@ -42,7 +42,7 @@ jobs:
           draft: false
           prerelease: false
           files: ${{ env.extension_path }}
-          
+
       - name: Update the update.json file
         run: |
           VERSION=${{ steps.get-version.outputs.version }}
