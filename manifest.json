@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Enable statut_mandat_pfo",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Removes the disabled attribute from the select#statut_mandat_pfo element.",
   "permissions": ["activeTab", "scripting"],
   "host_permissions": ["<all_urls>"],
