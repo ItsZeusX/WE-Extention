@@ -1,5 +1,5 @@
 (function enableSelects() {
-  console.log("Enabling disabled selects XXX");
+  console.log("Enabling disabled selects XXXXXXX");
 
   const tryEnable = () => {
     let foundElements = false;
