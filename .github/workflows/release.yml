@@ -43,16 +43,19 @@ jobs:
           prerelease: false
           files: ${{ env.extension_path }}
 
-      - name: Update the update.json file
+      - name: Update the update.xml file
         run: |
           VERSION=${{ steps.get-version.outputs.version }}
-          jq --arg version "$VERSION" \
-             --arg download_url "https://github.com/ItsZeusX/WE-Extention/releases/download/v$VERSION/enable-statut-mandat-pfo-v$VERSION.zip" \
-             '.addons["enable-statut-mandat-pfo@extension-id"].updates[0].version = $version | .addons["enable-statut-mandat-pfo@extension-id"].updates[0].update_link = $download_url' \
-             update/update.json > update/update.json.tmp
-          mv update/update.json.tmp update/update.json
+          cat <<EOF > update/update.xml
+          <?xml version='1.0' encoding='UTF-8'?>
+          <gupdate xmlns='http://www.google.com/update2/response' protocol='2.0'>
+            <app appid='enable-statut-mandat-pfo@extension-id'>
+              <updatecheck codebase='https://github.com/ItsZeusX/WE-Extention/releases/download/v$VERSION/enable-statut-mandat-pfo-v$VERSION.crx' version='$VERSION' />
+            </app>
+          </gupdate>
+          EOF
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
-          git add update/update.json
-          git commit -m "Update version to $VERSION in update.json [skip ci]" || echo "No changes to commit"
+          git add update/update.xml
+          git commit -m "Update version to $VERSION in update.xml [skip ci]" || echo "No changes to commit"
           git push || echo "Nothing to push"
